@@ -64,7 +64,8 @@ void Playlist::pushTrack(Track *track)
 
 string Playlist::getAlbumTitle()
 {
-    return string([[getMediaItemCollection() valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+    MPMediaItem *item = [getMediaItemCollection() representativeItem];
+    return string([[item valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
 }
 
 MPMediaItemCollection* Playlist::getMediaItemCollection()
