@@ -23,8 +23,21 @@ class cinder_ipod_testApp : public AppCocoaTouch {
 
 void cinder_ipod_testApp::setup()
 {
+	vector<ipod::PlaylistRef> artists = ipod::getArtists();
     vector<ipod::PlaylistRef> albums = ipod::getAlbums();
 
+	int i = 0;
+    for(vector<ipod::PlaylistRef>::iterator it = artists.begin(); it != artists.end() && i++ < 48; ++it){
+        ipod::PlaylistRef &artist = *it;
+
+        console() << artist->getArtistName() << endl;
+/*
+        Surface8u art = (*album)[0]->getArtwork(Vec2i(128, 128));
+        if(art)
+            tex.push_back(gl::Texture(art));*/
+    }
+
+	/*
     int i = 0;
     for(vector<ipod::PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 100; ++it){
         ipod::PlaylistRef &album = *it;
@@ -35,8 +48,8 @@ void cinder_ipod_testApp::setup()
         if(art)
             tex.push_back(gl::Texture(art));
     }
-
-    player.play(albums[0], 1);
+	*/
+    //player.play(albums[0], 1);
 }
 
 void cinder_ipod_testApp::update()

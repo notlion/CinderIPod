@@ -68,6 +68,12 @@ string Playlist::getAlbumTitle()
     return string([[item valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
 }
 
+string Playlist::getArtistName()
+{
+    MPMediaItem *item = [getMediaItemCollection() representativeItem];
+    return string([[item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
+}
+
 MPMediaItemCollection* Playlist::getMediaItemCollection()
 {
     NSMutableArray *items = [NSMutableArray array];
@@ -138,5 +144,20 @@ vector<PlaylistRef> getAlbums()
     return albums;
 }
 
+vector<PlaylistRef> getArtists()
+{
+    MPMediaQuery *query = [MPMediaQuery artistsQuery];
+
+    vector<PlaylistRef> artists;
+
+    NSArray *query_groups = [query collections];
+    for(MPMediaItemCollection *group in query_groups){
+        PlaylistRef artist = PlaylistRef(new Playlist(group));
+//        album->name = string([[[group representativeItem] valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+        artists.push_back(artist);
+    }
+
+    return artists;
+}
 
 }}
