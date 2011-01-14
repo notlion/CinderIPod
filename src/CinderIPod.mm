@@ -33,7 +33,7 @@ Surface Track::getArtwork(const Vec2i &size)
     if(artwork_img)
         return cocoa::convertUiImage(artwork_img, true);
     else
-    	return Surface();
+        return Surface();
 }
 
 
@@ -42,11 +42,11 @@ Surface Track::getArtwork(const Vec2i &size)
 Playlist::Playlist()
 {
 }
-Playlist::Playlist(MPMediaItemCollection *collection)
+Playlist::Playlist(MPMediaItemCollection *_media_collection)
 {
-    NSArray *items = [collection items];
+    NSArray *items = [_media_collection items];
     for(MPMediaItem *item in items){
-    	pushTrack(new Track(item));
+        pushTrack(new Track(item));
     }
 }
 Playlist::~Playlist()
@@ -62,11 +62,16 @@ void Playlist::pushTrack(Track *track)
     tracks.push_back(TrackRef(track));
 }
 
+string Playlist::getAlbumTitle()
+{
+    return string([[getMediaItemCollection() valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+}
+
 MPMediaItemCollection* Playlist::getMediaItemCollection()
 {
     NSMutableArray *items = [NSMutableArray array];
     for(Iter it = tracks.begin(); it != tracks.end(); ++it){
-    	[items addObject: (*it)->getMediaItem()];
+        [items addObject: (*it)->getMediaItem()];
     }
     return [MPMediaItemCollection collectionWithItems:items];
 }
@@ -87,10 +92,10 @@ void Player::play(PlaylistRef playlist, const int index)
     MPMediaItemCollection *collection = playlist->getMediaItemCollection();
 
     [controller stop];
-	[controller setQueueWithItemCollection: collection];
+    [controller setQueueWithItemCollection: collection];
 
     if(index > 0 && index < playlist->size())
-    	controller.nowPlayingItem = [[collection items] objectAtIndex: index];
+        controller.nowPlayingItem = [[collection items] objectAtIndex: index];
 
     [controller play];
 }
@@ -104,7 +109,7 @@ void Player::play(PlaylistRef playlist)
 
 PlaylistRef getAllTracks()
 {
-	MPMediaQuery *query = [MPMediaQuery songsQuery];
+    MPMediaQuery *query = [MPMediaQuery songsQuery];
 
     PlaylistRef tracks = PlaylistRef(new Playlist());
 
@@ -124,8 +129,8 @@ vector<PlaylistRef> getAlbums()
 
     NSArray *query_groups = [query collections];
     for(MPMediaItemCollection *group in query_groups){
-    	PlaylistRef album = PlaylistRef(new Playlist(group));
-        album->name = string([[[group representativeItem] valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+        PlaylistRef album = PlaylistRef(new Playlist(group));
+//        album->name = string([[[group representativeItem] valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
         albums.push_back(album);
     }
 

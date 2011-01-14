@@ -44,12 +44,14 @@ public:
 
     typedef vector<TrackRef>::iterator Iter;
 
-	Playlist();
+    Playlist();
     Playlist(MPMediaItemCollection *collection);
     ~Playlist();
 
     void pushTrack(TrackRef track);
     void pushTrack(Track *track);
+
+    string getAlbumTitle();
 
     TrackRef operator[](const int index){ return tracks[index]; };
     Iter begin(){ return tracks.begin(); };
@@ -59,11 +61,7 @@ public:
     MPMediaItemCollection* getMediaItemCollection();
 
     vector<TrackRef> tracks;
-
-    string name;
-
 };
-
 typedef std::shared_ptr<Playlist> PlaylistRef;
 
 
