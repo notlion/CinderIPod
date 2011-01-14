@@ -29,7 +29,7 @@ void cinder_ipod_testApp::setup()
     for(vector<ipod::PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 100; ++it){
         ipod::PlaylistRef &album = *it;
 
-        console() << album->name << endl;
+        console() << album->getAlbumTitle() << endl;
 
         Surface8u art = (*album)[0]->getArtwork(Vec2i(128, 128));
         if(art)
