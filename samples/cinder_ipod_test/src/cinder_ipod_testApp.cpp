@@ -6,6 +6,7 @@
 
 using namespace ci;
 using namespace ci::app;
+using namespace ci::ipod;
 using namespace std;
 
 
@@ -23,11 +24,11 @@ class cinder_ipod_testApp : public AppCocoaTouch {
 
 void cinder_ipod_testApp::setup()
 {
-    vector<ipod::PlaylistRef> albums = ipod::getAlbums();
+    vector<ipod::PlaylistRef> albums = getAlbums();
 
 	int i = 0;
-    for(vector<ipod::PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 100; ++it){
-        ipod::PlaylistRef &album = *it;
+    for(vector<PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 100; ++it){
+        PlaylistRef &album = *it;
 
         console() << album->getAlbumTitle() << endl;
 
@@ -36,14 +37,24 @@ void cinder_ipod_testApp::setup()
             tex.push_back(gl::Texture(art));
     }
 
+    // Show albums by the first artist
     string first_artist = albums[0]->getArtistName();
     console() << endl << "Albums by " << first_artist << ":" << endl;
-    vector<ipod::PlaylistRef> artist_albums = ipod::getAlbumsWithArtist(first_artist);
-    for(vector<ipod::PlaylistRef>::iterator it = artist_albums.begin(); it != artist_albums.end(); ++it){
-        console() << (*it)->getAlbumTitle() << endl;
+    vector<PlaylistRef> artist_albums = ipod::getAlbumsWithArtist(first_artist);
+    for(vector<PlaylistRef>::iterator it = artist_albums.begin(); it != artist_albums.end(); ++it){
+        PlaylistRef album = *it;
+        console() << album->getAlbumTitle() << endl;
     }
 
-    player.play(albums[0], 1);
+    // Show tracks in the first album
+    PlaylistRef first_album = albums[0];
+    console() << endl << "Tracks in " << first_album->getAlbumTitle() << ":" << endl;
+    for(Playlist::Iter it = first_album->begin(); it != first_album->end(); ++it){
+        TrackRef track = *it;
+		console() << track->getTitle() << endl;
+    }
+
+    player.play(first_album, 1);
 }
 
 void cinder_ipod_testApp::update()
