@@ -53,7 +53,7 @@ public:
 
     string getAlbumTitle();
 	string getArtistName();
-	
+
     TrackRef operator[](const int index){ return tracks[index]; };
     Iter begin(){ return tracks.begin(); };
     Iter end(){ return tracks.end(); };

@@ -137,7 +137,6 @@ vector<PlaylistRef> getAlbums()
     NSArray *query_groups = [query collections];
     for(MPMediaItemCollection *group in query_groups){
         PlaylistRef album = PlaylistRef(new Playlist(group));
-//        album->name = string([[[group representativeItem] valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
         albums.push_back(album);
     }
 
@@ -153,7 +152,6 @@ vector<PlaylistRef> getArtists()
     NSArray *query_groups = [query collections];
     for(MPMediaItemCollection *group in query_groups){
         PlaylistRef artist = PlaylistRef(new Playlist(group));
-//        album->name = string([[[group representativeItem] valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
         artists.push_back(artist);
     }
 
