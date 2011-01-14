@@ -84,6 +84,7 @@ protected:
 
 PlaylistRef         getAllTracks();
 vector<PlaylistRef> getAlbums();
+vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name);
 vector<PlaylistRef> getArtists();
 
 }}

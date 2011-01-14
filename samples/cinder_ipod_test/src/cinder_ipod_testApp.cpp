@@ -36,6 +36,13 @@ void cinder_ipod_testApp::setup()
             tex.push_back(gl::Texture(art));
     }
 
+    string first_artist = albums[0]->getArtistName();
+    console() << endl << "Albums by " << first_artist << ":" << endl;
+    vector<ipod::PlaylistRef> artist_albums = ipod::getAlbumsWithArtist(first_artist);
+    for(vector<ipod::PlaylistRef>::iterator it = artist_albums.begin(); it != artist_albums.end(); ++it){
+        console() << (*it)->getAlbumTitle() << endl;
+    }
+
     player.play(albums[0], 1);
 }
 
