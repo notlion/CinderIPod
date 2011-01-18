@@ -50,13 +50,16 @@ public:
 
     void pushTrack(TrackRef track);
     void pushTrack(Track *track);
+    void popLastTrack(){ tracks.pop_back(); };
 
     string getAlbumTitle();
 	string getArtistName();
 
     TrackRef operator[](const int index){ return tracks[index]; };
-    Iter begin(){ return tracks.begin(); };
-    Iter end(){ return tracks.end(); };
+    TrackRef firstTrack(){ return tracks.front(); };
+    TrackRef lastTrack(){ return tracks.back(); };
+    Iter  begin(){ return tracks.begin(); };
+    Iter  end(){ return tracks.end(); };
     size_t size(){ return tracks.size(); };
 
     MPMediaItemCollection* getMediaItemCollection();
