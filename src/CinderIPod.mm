@@ -20,9 +20,18 @@ string Track::getTitle()
 {
     return string([[media_item valueForProperty: MPMediaItemPropertyTitle] UTF8String]);
 }
+string Track::getAlbumTitle()
+{
+    return string([[media_item valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+}
 string Track::getArtist()
 {
     return string([[media_item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
+}
+
+int Track::getPlayCount()
+{
+    return [[media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
 }
 
 Surface Track::getArtwork(const Vec2i &size)

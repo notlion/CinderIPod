@@ -23,7 +23,10 @@ public:
     ~Track();
 
     string getTitle();
+    string getAlbumTitle();
     string getArtist();
+
+    int    getPlayCount();
 
     Surface getArtwork(const Vec2i &size);
 
