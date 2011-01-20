@@ -137,6 +137,24 @@ PlaylistRef getAllTracks()
     return tracks;
 }
 
+PlaylistRef getAlbum(const string &album_title)
+{
+    MPMediaQuery *query = [[MPMediaQuery init] alloc];
+    [query addFilterPredicate: [MPMediaPropertyPredicate
+           predicateWithValue: [NSString stringWithUTF8String: album_title.c_str()]
+                  forProperty: MPMediaItemPropertyAlbumTitle
+    ]];
+
+    PlaylistRef tracks = PlaylistRef(new Playlist());
+
+    NSArray *items = [query items];
+    for(MPMediaItem *item in items){
+        tracks->pushTrack(new Track(item));
+    }
+
+    return tracks;
+}
+
 vector<PlaylistRef> getAlbums()
 {
     MPMediaQuery *query = [MPMediaQuery albumsQuery];
@@ -156,7 +174,7 @@ vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name)
 {
     MPMediaQuery *query = [[MPMediaQuery alloc] init];
     [query addFilterPredicate: [MPMediaPropertyPredicate
-           predicateWithValue: [NSString stringWithUTF8String:artist_name.c_str()]
+           predicateWithValue: [NSString stringWithUTF8String: artist_name.c_str()]
                   forProperty: MPMediaItemPropertyArtist
     ]];
     [query setGroupingType: MPMediaGroupingAlbum];

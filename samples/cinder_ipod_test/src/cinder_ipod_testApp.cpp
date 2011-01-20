@@ -54,6 +54,9 @@ void cinder_ipod_testApp::setup()
 		console() << track->getTitle() << endl;
     }
 
+    // Show the play count for the first track of the first album
+    console() << endl << (*first_album)[0]->getTitle() << " has " << (*first_album)[0]->getPlayCount() << " plays" << endl;
+
     player.play(first_album, 1);
 }
 
