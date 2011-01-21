@@ -3,11 +3,12 @@
 #include "cinder/Cinder.h"
 #include "cinder/Surface.h"
 #include "cinder/cocoa/CinderCocoaTouch.h"
+
+#include <MediaPlayer/MediaPlayer.h>
+
 #include <vector>
 #include <string>
 #include <ostream>
-
-#include <MediaPlayer/MediaPlayer.h>
 
 using std::string;
 using std::vector;
@@ -27,6 +28,7 @@ public:
     string getArtist();
 
     int    getPlayCount();
+    double getLength();
 
     Surface getArtwork(const Vec2i &size);
 
@@ -69,23 +71,8 @@ public:
 
     vector<TrackRef> tracks;
 };
+
 typedef std::shared_ptr<Playlist> PlaylistRef;
-
-
-class Player {
-public:
-
-    Player();
-    ~Player();
-
-    void play(PlaylistRef playlist);
-    void play(PlaylistRef playlist, const int index);
-
-protected:
-
-    MPMusicPlayerController *controller;
-
-};
 
 
 PlaylistRef         getAllTracks();

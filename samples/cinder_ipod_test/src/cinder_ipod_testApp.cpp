@@ -3,6 +3,7 @@
 #include "cinder/Text.h"
 
 #include "CinderIPod.h"
+#include "CinderIPodPlayer.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -12,22 +13,34 @@ using namespace std;
 
 class cinder_ipod_testApp : public AppCocoaTouch {
   public:
-	virtual void setup();
-	virtual void update();
-	virtual void draw();
+    void prepareSettings(Settings *settings);
+	void setup();
+	void update();
+	void draw();
 
-    ipod::Player player;
+    void touchesBegan(TouchEvent event);
+
+    bool onStateChanged(Player *player);
+    bool onTrackChanged(Player *player);
+
+    Player player;
 
 	vector<gl::Texture> tex;
 };
 
 
+void cinder_ipod_testApp::prepareSettings(Settings *settings)
+{
+    settings->enableMultiTouch(true);
+}
+
 void cinder_ipod_testApp::setup()
 {
     vector<ipod::PlaylistRef> albums = getAlbums();
 
+    // Load Album Art
 	int i = 0;
-    for(vector<PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 100; ++it){
+    for(vector<PlaylistRef>::iterator it = albums.begin(); it != albums.end() && i++ < 64; ++it){
         PlaylistRef &album = *it;
 
         console() << album->getAlbumTitle() << endl;
@@ -54,10 +67,9 @@ void cinder_ipod_testApp::setup()
 		console() << track->getTitle() << endl;
     }
 
-    // Show the play count for the first track of the first album
-    console() << endl << (*first_album)[0]->getTitle() << " has " << (*first_album)[0]->getPlayCount() << " plays" << endl;
-
-    player.play(first_album, 1);
+    // Play the first track
+    player.registerStateChanged(this, &cinder_ipod_testApp::onStateChanged);
+    player.registerTrackChanged(this, &cinder_ipod_testApp::onTrackChanged);
 }
 
 void cinder_ipod_testApp::update()
@@ -82,6 +94,35 @@ void cinder_ipod_testApp::draw()
         if(y > getWindowHeight())
             break;
     }
+}
+
+
+void cinder_ipod_testApp::touchesBegan(TouchEvent event)
+{
+    if(player.getPlayState() != Player::PLAYING)
+        player.play(getAlbums()[0], 0);
+    else
+    	player.skipNext();
+}
+
+
+bool cinder_ipod_testApp::onStateChanged(Player *player)
+{
+    switch(player->getPlayState()){
+        case Player::PLAYING:
+            console() << "Playing..." << endl;
+            break;
+        case Player::STOPPED:
+            console() << "Stopped." << endl;
+            break;
+    }
+    return false;
+}
+
+bool cinder_ipod_testApp::onTrackChanged(Player *player)
+{
+    console() << "Now Playing: " << player->getPlayingTrack()->getTitle() << endl;
+    return false;
 }
 
 

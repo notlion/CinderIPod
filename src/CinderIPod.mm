@@ -3,6 +3,7 @@
 namespace cinder { namespace ipod {
 
 
+
 // TRACK
 
 Track::Track()
@@ -34,6 +35,11 @@ int Track::getPlayCount()
     return [[media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
 }
 
+double Track::getLength()
+{
+    return [[media_item valueForProperty: MPMediaItemPropertyPlaybackDuration] doubleValue];
+}
+
 Surface Track::getArtwork(const Vec2i &size)
 {
     MPMediaItemArtwork *artwork = [media_item valueForProperty: MPMediaItemPropertyArtwork];
@@ -44,6 +50,7 @@ Surface Track::getArtwork(const Vec2i &size)
     else
         return Surface();
 }
+
 
 
 // PLAYLIST
@@ -92,33 +99,6 @@ MPMediaItemCollection* Playlist::getMediaItemCollection()
     return [MPMediaItemCollection collectionWithItems:items];
 }
 
-
-// PLAYER
-
-Player::Player()
-{
-    controller = [[MPMusicPlayerController iPodMusicPlayer] retain];
-}
-Player::~Player()
-{
-}
-
-void Player::play(PlaylistRef playlist, const int index)
-{
-    MPMediaItemCollection *collection = playlist->getMediaItemCollection();
-
-    [controller stop];
-    [controller setQueueWithItemCollection: collection];
-
-    if(index > 0 && index < playlist->size())
-        controller.nowPlayingItem = [[collection items] objectAtIndex: index];
-
-    [controller play];
-}
-void Player::play(PlaylistRef playlist)
-{
-    play(playlist, 0);
-}
 
 
 // IPOD
