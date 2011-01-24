@@ -31,6 +31,21 @@ void Player::play( PlaylistRef playlist )
     play(playlist, 0);
 }
 
+void Player::stop()
+{
+    [pod->controller stop];
+}
+
+
+void Player::setPlayheadTime(double time)
+{
+    pod->controller.currentPlaybackTime = time;
+}
+double Player::getPlayheadTime()
+{
+    return pod->controller.currentPlaybackTime;
+}
+
 
 void Player::skipNext()
 {
@@ -60,11 +75,6 @@ void Player::setShuffleOff()
 TrackRef Player::getPlayingTrack()
 {
 	return TrackRef(new Track(pod->controller.nowPlayingItem));
-}
-
-double Player::getPlaybackTime()
-{
-    return pod->controller.currentPlaybackTime;
 }
 
 Player::State Player::getPlayState()

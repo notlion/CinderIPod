@@ -22,15 +22,18 @@ public:
 
     void play( PlaylistRef playlist );
     void play( PlaylistRef playlist, const int index );
+    void stop();
     void skipNext();
     void skipPrev();
+
+    void   setPlayheadTime(double time);
+    double getPlayheadTime();
 
     void setShuffleSongs();
     void setShuffleAlbums();
     void setShuffleOff();
 
     TrackRef getPlayingTrack();
-    double   getPlaybackTime();
     State    getPlayState();
 
     template<typename T>
