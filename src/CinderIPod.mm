@@ -30,6 +30,15 @@ string Track::getArtist()
     return string([[media_item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
 }
 
+uint64_t Track::getAlbumId()
+{
+    return [[media_item valueForProperty: MPMediaItemPropertyAlbumPersistentID] longLongValue];
+}
+uint64_t Track::getArtistId()
+{
+    return [[media_item valueForProperty: MPMediaItemPropertyArtistPersistentID] longLongValue];
+}
+
 int Track::getPlayCount()
 {
     return [[media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
@@ -106,33 +115,21 @@ MPMediaItemCollection* Playlist::getMediaItemCollection()
 PlaylistRef getAllTracks()
 {
     MPMediaQuery *query = [MPMediaQuery songsQuery];
+    MPMediaItemCollection *tracks = [MPMediaItemCollection collectionWithItems: [query items]];
 
-    PlaylistRef tracks = PlaylistRef(new Playlist());
-
-    NSArray *items = [query items];
-    for(MPMediaItem *item in items){
-        tracks->pushTrack(new Track(item));
-    }
-
-    return tracks;
+    return PlaylistRef(new Playlist(tracks));
 }
 
-PlaylistRef getAlbum(const string &album_title)
+PlaylistRef getAlbum(uint64_t album_id)
 {
-    MPMediaQuery *query = [[MPMediaQuery init] alloc];
+    MPMediaQuery *query = [[MPMediaQuery alloc] init];
     [query addFilterPredicate: [MPMediaPropertyPredicate
-           predicateWithValue: [NSString stringWithUTF8String: album_title.c_str()]
-                  forProperty: MPMediaItemPropertyAlbumTitle
+           predicateWithValue: [NSNumber numberWithUnsignedLongLong: album_id]
+                  forProperty: MPMediaItemPropertyAlbumPersistentID
     ]];
+    MPMediaItemCollection *tracks = [MPMediaItemCollection collectionWithItems: [query items]];
 
-    PlaylistRef tracks = PlaylistRef(new Playlist());
-
-    NSArray *items = [query items];
-    for(MPMediaItem *item in items){
-        tracks->pushTrack(new Track(item));
-    }
-
-    return tracks;
+    return PlaylistRef(new Playlist(tracks));
 }
 
 vector<PlaylistRef> getAlbums()

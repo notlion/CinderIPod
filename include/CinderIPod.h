@@ -23,12 +23,15 @@ public:
     Track(MPMediaItem *_media_item);
     ~Track();
 
-    string getTitle();
-    string getAlbumTitle();
-    string getArtist();
+    string   getTitle();
+    string   getAlbumTitle();
+    string   getArtist();
 
-    int    getPlayCount();
-    double getLength();
+    uint64_t getAlbumId();
+    uint64_t getArtistId();
+
+    int      getPlayCount();
+    double   getLength();
 
     Surface getArtwork(const Vec2i &size);
 
@@ -76,7 +79,7 @@ typedef std::shared_ptr<Playlist> PlaylistRef;
 
 
 PlaylistRef         getAllTracks();
-PlaylistRef         getAlbum(const string &album_title);
+PlaylistRef         getAlbum(uint64_t album_id);
 vector<PlaylistRef> getAlbums();
 vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name);
 vector<PlaylistRef> getArtists();
