@@ -3,7 +3,6 @@
 namespace cinder { namespace ipod {
 
 
-
 // TRACK
 
 Track::Track()
@@ -185,4 +184,4 @@ vector<PlaylistRef> getArtists()
     return artists;
 }
 
-}}
+} } // namespace cinder::ipod

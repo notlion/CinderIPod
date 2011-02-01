@@ -7,16 +7,16 @@
 
 namespace cinder { namespace ipod {
     class Player;
-}}
+} }
 
 @interface CinderIPodPlayerImpl : NSObject {
 @public
-	MPMusicPlayerController *controller;
+    MPMusicPlayerController *controller;
     MPMediaItem             *playing_item;
 
     cinder::ipod::Player    *player;
 
-	cinder::CallbackMgr<bool(cinder::ipod::Player*)> cb_state_change;
+    cinder::CallbackMgr<bool(cinder::ipod::Player*)> cb_state_change;
     cinder::CallbackMgr<bool(cinder::ipod::Player*)> cb_track_change;
 }
 

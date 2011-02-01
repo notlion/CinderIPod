@@ -13,6 +13,7 @@ Player::~Player()
     [pod dealloc];
 }
 
+
 void Player::play( PlaylistRef playlist, const int index )
 {
     MPMediaItemCollection *collection = playlist->getMediaItemCollection();
@@ -74,7 +75,7 @@ void Player::setShuffleOff()
 
 TrackRef Player::getPlayingTrack()
 {
-	return TrackRef(new Track(pod->controller.nowPlayingItem));
+    return TrackRef(new Track(pod->controller.nowPlayingItem));
 }
 
 Player::State Player::getPlayState()

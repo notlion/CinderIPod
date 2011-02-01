@@ -15,7 +15,6 @@ using std::vector;
 
 namespace cinder { namespace ipod {
 
-
 class Track {
 public:
 
@@ -58,7 +57,7 @@ public:
     void popLastTrack(){ tracks.pop_back(); };
 
     string getAlbumTitle();
-	string getArtistName();
+    string getArtistName();
 
     TrackRef operator[](const int index){ return tracks[index]; };
     TrackRef firstTrack(){ return tracks.front(); };
@@ -81,4 +80,4 @@ vector<PlaylistRef> getAlbums();
 vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name);
 vector<PlaylistRef> getArtists();
 
-}}
+} } // namespace cinder::ipod
