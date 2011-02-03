@@ -124,6 +124,10 @@ PlaylistRef getAlbum(uint64_t album_id)
 {
     MPMediaQuery *query = [[MPMediaQuery alloc] init];
     [query addFilterPredicate: [MPMediaPropertyPredicate
+           predicateWithValue: [NSNumber numberWithInteger: MPMediaTypeMusic]
+                  forProperty: MPMediaItemPropertyMediaType
+    ]];
+    [query addFilterPredicate: [MPMediaPropertyPredicate
            predicateWithValue: [NSNumber numberWithUnsignedLongLong: album_id]
                   forProperty: MPMediaItemPropertyAlbumPersistentID
     ]];
@@ -150,6 +154,10 @@ vector<PlaylistRef> getAlbums()
 vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name)
 {
     MPMediaQuery *query = [[MPMediaQuery alloc] init];
+    [query addFilterPredicate: [MPMediaPropertyPredicate
+           predicateWithValue: [NSNumber numberWithInteger: MPMediaTypeMusic]
+                  forProperty: MPMediaItemPropertyMediaType
+    ]];
     [query addFilterPredicate: [MPMediaPropertyPredicate
            predicateWithValue: [NSString stringWithUTF8String: artist_name.c_str()]
                   forProperty: MPMediaItemPropertyArtist
