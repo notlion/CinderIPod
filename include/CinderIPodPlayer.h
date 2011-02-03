@@ -9,12 +9,12 @@ class Player {
 public:
 
     enum State {
-        STOPPED          = MPMusicPlaybackStateStopped,
-        PLAYING          = MPMusicPlaybackStatePlaying,
-        PAUSED           = MPMusicPlaybackStatePaused,
-        INTERRUPTED      = MPMusicPlaybackStateInterrupted,
-        SEEKING_FORWARD  = MPMusicPlaybackStateSeekingForward,
-        SEEKING_BACKWARD = MPMusicPlaybackStateSeekingBackward
+        StateStopped         = MPMusicPlaybackStateStopped,
+        StatePlaying         = MPMusicPlaybackStatePlaying,
+        StatePaused          = MPMusicPlaybackStatePaused,
+        StateInterrupted     = MPMusicPlaybackStateInterrupted,
+        StateSeekingForward  = MPMusicPlaybackStateSeekingForward,
+        StateSeekingBackward = MPMusicPlaybackStateSeekingBackward
     };
 
     Player();

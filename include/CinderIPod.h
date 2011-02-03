@@ -72,6 +72,7 @@ public:
     MPMediaItemCollection* getMediaItemCollection();
 
     vector<TrackRef> tracks;
+
 };
 
 typedef std::shared_ptr<Playlist> PlaylistRef;

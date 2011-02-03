@@ -99,7 +99,7 @@ void cinder_ipod_testApp::draw()
 
 void cinder_ipod_testApp::touchesBegan(TouchEvent event)
 {
-    if(player.getPlayState() != Player::PLAYING)
+    if(player.getPlayState() != Player::StatePlaying)
         player.play(getAlbums()[0], 0);
     else
     	player.skipNext();
@@ -109,10 +109,10 @@ void cinder_ipod_testApp::touchesBegan(TouchEvent event)
 bool cinder_ipod_testApp::onStateChanged(Player *player)
 {
     switch(player->getPlayState()){
-        case Player::PLAYING:
+        case Player::StatePlaying:
             console() << "Playing..." << endl;
             break;
-        case Player::STOPPED:
+        case Player::StateStopped:
             console() << "Stopped." << endl;
             break;
     }
