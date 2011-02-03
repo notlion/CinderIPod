@@ -65,8 +65,8 @@ public:
     TrackRef operator[](const int index){ return tracks[index]; };
     TrackRef firstTrack(){ return tracks.front(); };
     TrackRef lastTrack(){ return tracks.back(); };
-    Iter  begin(){ return tracks.begin(); };
-    Iter  end(){ return tracks.end(); };
+    Iter   begin(){ return tracks.begin(); };
+    Iter   end(){ return tracks.end(); };
     size_t size(){ return tracks.size(); };
 
     MPMediaItemCollection* getMediaItemCollection();
