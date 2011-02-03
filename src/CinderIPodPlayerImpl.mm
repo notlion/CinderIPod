@@ -28,18 +28,18 @@
 }
 - (void)dealloc
 {
-	[super dealloc];
+    [super dealloc];
     [controller dealloc];
 }
 
 - (void)onStateChanged:(NSNotification *)notification
 {
-	cb_state_change.call(player);
+    cb_state_change.call(player);
 }
 
 - (void)onTrackChanged:(NSNotification *)notification
 {
-	cb_track_change.call(player);
+    cb_track_change.call(player);
 }
 
 @end

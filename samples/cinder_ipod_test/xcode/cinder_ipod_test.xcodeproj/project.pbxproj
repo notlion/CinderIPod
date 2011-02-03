@@ -15,7 +15,7 @@
 		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
 		43CD9799123D6504003B628E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CD9798123D6504003B628E /* Icon.png */; };
 		949BBC4312E95AF400EC9A92 /* CinderIPod.mm in Sources */ = {isa = PBXBuildFile; fileRef = 949BBB8D12E95AF400EC9A92 /* CinderIPod.mm */; };
-		949BBC4412E95AF400EC9A92 /* CinderIPodPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.cpp */; };
+		949BBC4412E95AF400EC9A92 /* CinderIPodPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.mm */; };
 		949BBC4512E95AF400EC9A92 /* CinderIPodPlayerImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 949BBB8F12E95AF400EC9A92 /* CinderIPodPlayerImpl.mm */; };
 		94E7CC0B12B6E47F0070E3AE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E7CC0A12B6E47F0070E3AE /* MediaPlayer.framework */; };
 		C725DFFE121DAC7F00FA186B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C727C02B121B400300192073 /* CoreMedia.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -39,7 +39,7 @@
 		949BBB4312E95AF400EC9A92 /* CinderIPodPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinderIPodPlayer.h; sourceTree = "<group>"; };
 		949BBB4412E95AF400EC9A92 /* CinderIPodPlayerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinderIPodPlayerImpl.h; sourceTree = "<group>"; };
 		949BBB8D12E95AF400EC9A92 /* CinderIPod.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CinderIPod.mm; sourceTree = "<group>"; };
-		949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CinderIPodPlayer.cpp; sourceTree = "<group>"; };
+		949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CinderIPodPlayer.mm; sourceTree = "<group>"; };
 		949BBB8F12E95AF400EC9A92 /* CinderIPodPlayerImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CinderIPodPlayerImpl.mm; sourceTree = "<group>"; };
 		94E7CC0A12B6E47F0070E3AE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		C725E000121DAC8F00FA186B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -172,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				949BBB8D12E95AF400EC9A92 /* CinderIPod.mm */,
-				949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.cpp */,
+				949BBB8E12E95AF400EC9A92 /* CinderIPodPlayer.mm */,
 				949BBB8F12E95AF400EC9A92 /* CinderIPodPlayerImpl.mm */,
 			);
 			path = src;
@@ -240,7 +240,7 @@
 			files = (
 				00CFDFE011384CC60091E310 /* cinder_ipod_testApp.cpp in Sources */,
 				949BBC4312E95AF400EC9A92 /* CinderIPod.mm in Sources */,
-				949BBC4412E95AF400EC9A92 /* CinderIPodPlayer.cpp in Sources */,
+				949BBC4412E95AF400EC9A92 /* CinderIPodPlayer.mm in Sources */,
 				949BBC4512E95AF400EC9A92 /* CinderIPodPlayerImpl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
