@@ -38,16 +38,16 @@ public:
 
     template<typename T>
     CallbackId registerTrackChanged( T *obj, bool (T::*callback)(Player*) ){
-        return pod->cb_track_change.registerCb(std::bind1st(std::mem_fun(callback), obj));
+        return m_pod->m_cb_track_change.registerCb(std::bind1st(std::mem_fun(callback), obj));
     }
     template<typename T>
     CallbackId registerStateChanged( T *obj, bool (T::*callback)(Player*) ){
-        return pod->cb_state_change.registerCb(std::bind1st(std::mem_fun(callback), obj));
+        return m_pod->m_cb_state_change.registerCb(std::bind1st(std::mem_fun(callback), obj));
     }
 
 protected:
 
-    CinderIPodPlayerImpl *pod;
+    CinderIPodPlayerImpl *m_pod;
 
 };
 

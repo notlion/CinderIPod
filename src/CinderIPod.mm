@@ -8,9 +8,9 @@ namespace cinder { namespace ipod {
 Track::Track()
 {
 }
-Track::Track(MPMediaItem *_media_item)
+Track::Track(MPMediaItem *media_item)
 {
-    media_item = [_media_item retain];
+    m_media_item = [media_item retain];
 }
 Track::~Track()
 {
@@ -18,39 +18,39 @@ Track::~Track()
 
 string Track::getTitle()
 {
-    return string([[media_item valueForProperty: MPMediaItemPropertyTitle] UTF8String]);
+    return string([[m_media_item valueForProperty: MPMediaItemPropertyTitle] UTF8String]);
 }
 string Track::getAlbumTitle()
 {
-    return string([[media_item valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
+    return string([[m_media_item valueForProperty: MPMediaItemPropertyAlbumTitle] UTF8String]);
 }
 string Track::getArtist()
 {
-    return string([[media_item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
+    return string([[m_media_item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
 }
 
 uint64_t Track::getAlbumId()
 {
-    return [[media_item valueForProperty: MPMediaItemPropertyAlbumPersistentID] longLongValue];
+    return [[m_media_item valueForProperty: MPMediaItemPropertyAlbumPersistentID] longLongValue];
 }
 uint64_t Track::getArtistId()
 {
-    return [[media_item valueForProperty: MPMediaItemPropertyArtistPersistentID] longLongValue];
+    return [[m_media_item valueForProperty: MPMediaItemPropertyArtistPersistentID] longLongValue];
 }
 
 int Track::getPlayCount()
 {
-    return [[media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
+    return [[m_media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
 }
 
 double Track::getLength()
 {
-    return [[media_item valueForProperty: MPMediaItemPropertyPlaybackDuration] doubleValue];
+    return [[m_media_item valueForProperty: MPMediaItemPropertyPlaybackDuration] doubleValue];
 }
 
 Surface Track::getArtwork(const Vec2i &size)
 {
-    MPMediaItemArtwork *artwork = [media_item valueForProperty: MPMediaItemPropertyArtwork];
+    MPMediaItemArtwork *artwork = [m_media_item valueForProperty: MPMediaItemPropertyArtwork];
     UIImage *artwork_img = [artwork imageWithSize: CGSizeMake(size.x, size.y)];
 
     if(artwork_img)
@@ -66,9 +66,9 @@ Surface Track::getArtwork(const Vec2i &size)
 Playlist::Playlist()
 {
 }
-Playlist::Playlist(MPMediaItemCollection *_media_collection)
+Playlist::Playlist(MPMediaItemCollection *media_collection)
 {
-    NSArray *items = [_media_collection items];
+    NSArray *items = [media_collection items];
     for(MPMediaItem *item in items){
         pushTrack(new Track(item));
     }
@@ -79,11 +79,11 @@ Playlist::~Playlist()
 
 void Playlist::pushTrack(TrackRef track)
 {
-    tracks.push_back(track);
+    m_tracks.push_back(track);
 }
 void Playlist::pushTrack(Track *track)
 {
-    tracks.push_back(TrackRef(track));
+    m_tracks.push_back(TrackRef(track));
 }
 
 string Playlist::getAlbumTitle()
@@ -101,7 +101,7 @@ string Playlist::getArtistName()
 MPMediaItemCollection* Playlist::getMediaItemCollection()
 {
     NSMutableArray *items = [NSMutableArray array];
-    for(Iter it = tracks.begin(); it != tracks.end(); ++it){
+    for(Iter it = m_tracks.begin(); it != m_tracks.end(); ++it){
         [items addObject: (*it)->getMediaItem()];
     }
     return [MPMediaItemCollection collectionWithItems:items];

@@ -19,7 +19,7 @@ class Track {
 public:
 
     Track();
-    Track(MPMediaItem *_media_item);
+    Track(MPMediaItem *media_item);
     ~Track();
 
     string   getTitle();
@@ -35,12 +35,13 @@ public:
     Surface getArtwork(const Vec2i &size);
 
     MPMediaItem* getMediaItem(){
-        return media_item;
+        return m_media_item;
     };
 
 protected:
 
-    MPMediaItem *media_item;
+    MPMediaItem *m_media_item;
+
 };
 
 typedef std::shared_ptr<Track> TrackRef;
@@ -57,21 +58,21 @@ public:
 
     void pushTrack(TrackRef track);
     void pushTrack(Track *track);
-    void popLastTrack(){ tracks.pop_back(); };
+    void popLastTrack(){ m_tracks.pop_back(); };
 
     string getAlbumTitle();
     string getArtistName();
 
-    TrackRef operator[](const int index){ return tracks[index]; };
-    TrackRef firstTrack(){ return tracks.front(); };
-    TrackRef lastTrack(){ return tracks.back(); };
-    Iter   begin(){ return tracks.begin(); };
-    Iter   end(){ return tracks.end(); };
-    size_t size(){ return tracks.size(); };
+    TrackRef operator[](const int index){ return m_tracks[index]; };
+    TrackRef firstTrack(){ return m_tracks.front(); };
+    TrackRef lastTrack(){ return m_tracks.back(); };
+    Iter   begin(){ return m_tracks.begin(); };
+    Iter   end(){ return m_tracks.end(); };
+    size_t size(){ return m_tracks.size(); };
 
     MPMediaItemCollection* getMediaItemCollection();
 
-    vector<TrackRef> tracks;
+    vector<TrackRef> m_tracks;
 
 };
 

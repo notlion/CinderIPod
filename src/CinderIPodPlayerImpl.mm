@@ -4,42 +4,42 @@
 
 @implementation CinderIPodPlayerImpl
 
-- (id)init:(cinder::ipod::Player*)_player
+- (id)init:(cinder::ipod::Player*)player
 {
     self = [super init];
 
-    player = _player;
-    controller = [MPMusicPlayerController iPodMusicPlayer];
+    m_player = player;
+    m_controller = [MPMusicPlayerController iPodMusicPlayer];
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver: self
            selector: @selector (onStateChanged:)
                name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
-             object: controller];
+             object: m_controller];
 
     [nc addObserver: self
            selector: @selector (onTrackChanged:)
                name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-             object: controller];
+             object: m_controller];
 
-    [controller beginGeneratingPlaybackNotifications];
+    [m_controller beginGeneratingPlaybackNotifications];
 
     return self;
 }
 - (void)dealloc
 {
     [super dealloc];
-    [controller dealloc];
+    [m_controller dealloc];
 }
 
 - (void)onStateChanged:(NSNotification *)notification
 {
-    cb_state_change.call(player);
+    m_cb_state_change.call(m_player);
 }
 
 - (void)onTrackChanged:(NSNotification *)notification
 {
-    cb_track_change.call(player);
+    m_cb_track_change.call(m_player);
 }
 
 @end

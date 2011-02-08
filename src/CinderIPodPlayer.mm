@@ -5,12 +5,12 @@ namespace cinder { namespace ipod {
 
 Player::Player()
 {
-    pod = [[CinderIPodPlayerImpl alloc] init: this];
+    m_pod = [[CinderIPodPlayerImpl alloc] init: this];
 }
 
 Player::~Player()
 {
-    [pod dealloc];
+    [m_pod dealloc];
 }
 
 
@@ -18,13 +18,13 @@ void Player::play( PlaylistRef playlist, const int index )
 {
     MPMediaItemCollection *collection = playlist->getMediaItemCollection();
 
-    [pod->controller stop];
-    [pod->controller setQueueWithItemCollection: collection];
+    [m_pod->m_controller stop];
+    [m_pod->m_controller setQueueWithItemCollection: collection];
 
     if(index > 0 && index < playlist->size())
-        pod->controller.nowPlayingItem = [[collection items] objectAtIndex: index];
+        m_pod->m_controller.nowPlayingItem = [[collection items] objectAtIndex: index];
 
-    [pod->controller play];
+    [m_pod->m_controller play];
 }
 
 void Player::play( PlaylistRef playlist )
@@ -34,53 +34,53 @@ void Player::play( PlaylistRef playlist )
 
 void Player::stop()
 {
-    [pod->controller stop];
+    [m_pod->m_controller stop];
 }
 
 
 void Player::setPlayheadTime(double time)
 {
-    pod->controller.currentPlaybackTime = time;
+    m_pod->m_controller.currentPlaybackTime = time;
 }
 double Player::getPlayheadTime()
 {
-    return pod->controller.currentPlaybackTime;
+    return m_pod->m_controller.currentPlaybackTime;
 }
 
 
 void Player::skipNext()
 {
-    [pod->controller skipToNextItem];
+    [m_pod->m_controller skipToNextItem];
 }
 
 void Player::skipPrev()
 {
-    [pod->controller skipToPreviousItem];
+    [m_pod->m_controller skipToPreviousItem];
 }
 
 
 void Player::setShuffleSongs()
 {
-    [pod->controller setShuffleMode: MPMusicShuffleModeSongs];
+    [m_pod->m_controller setShuffleMode: MPMusicShuffleModeSongs];
 }
 void Player::setShuffleAlbums()
 {
-    [pod->controller setShuffleMode: MPMusicShuffleModeAlbums];
+    [m_pod->m_controller setShuffleMode: MPMusicShuffleModeAlbums];
 }
 void Player::setShuffleOff()
 {
-    [pod->controller setShuffleMode: MPMusicShuffleModeOff];
+    [m_pod->m_controller setShuffleMode: MPMusicShuffleModeOff];
 }
 
 
 TrackRef Player::getPlayingTrack()
 {
-    return TrackRef(new Track(pod->controller.nowPlayingItem));
+    return TrackRef(new Track(m_pod->m_controller.nowPlayingItem));
 }
 
 Player::State Player::getPlayState()
 {
-    return State(pod->controller.playbackState);
+    return State(m_pod->m_controller.playbackState);
 }
 
 
