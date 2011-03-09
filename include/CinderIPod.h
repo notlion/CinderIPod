@@ -31,6 +31,7 @@ public:
 	uint64_t getItemId();
 
     int      getPlayCount();
+    int      getStarRating();
     double   getLength();
 
     Surface getArtwork(const Vec2i &size);

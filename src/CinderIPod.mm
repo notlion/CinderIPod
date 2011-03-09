@@ -44,9 +44,13 @@ uint64_t Track::getItemId()
 
 int Track::getPlayCount()
 {
-    return [[m_media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
+	return [[m_media_item valueForProperty: MPMediaItemPropertyPlayCount] intValue];
 }
-
+int Track::getStarRating()
+{
+	return [[m_media_item valueForProperty: MPMediaItemPropertyRating] intValue];
+}
+	
 double Track::getLength()
 {
     return [[m_media_item valueForProperty: MPMediaItemPropertyPlaybackDuration] doubleValue];
