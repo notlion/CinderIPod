@@ -37,6 +37,10 @@ uint64_t Track::getArtistId()
 {
     return [[m_media_item valueForProperty: MPMediaItemPropertyArtistPersistentID] longLongValue];
 }
+uint64_t Track::getItemId()
+{
+    return [[m_media_item valueForProperty: MPMediaItemPropertyPersistentID] longLongValue];
+}
 
 int Track::getPlayCount()
 {
@@ -174,6 +178,22 @@ vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name)
     return albums;
 }
 
+PlaylistRef getArtist(uint64_t artist_id)
+{
+	MPMediaQuery *query = [[MPMediaQuery alloc] init];
+	[query addFilterPredicate: [MPMediaPropertyPredicate
+								predicateWithValue: [NSNumber numberWithInteger: MPMediaTypeMusic]
+								forProperty: MPMediaItemPropertyMediaType
+								]];
+	[query addFilterPredicate: [MPMediaPropertyPredicate
+								predicateWithValue: [NSNumber numberWithUnsignedLongLong: artist_id]
+								forProperty: MPMediaItemPropertyArtistPersistentID
+								]];
+	MPMediaItemCollection *group = [MPMediaItemCollection collectionWithItems: [query items]];
+	
+	return PlaylistRef(new Playlist(group));
+}
+	
 vector<PlaylistRef> getArtists()
 {
     MPMediaQuery *query = [MPMediaQuery artistsQuery];

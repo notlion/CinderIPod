@@ -12,7 +12,13 @@ Player::~Player()
 {
     [m_pod dealloc];
 }
-
+	
+//void Player::play( TrackRef track )
+//{
+//	[m_pod->m_controller stop];
+//	m_pod->m_controller.nowPlayingItem = track->getMediaItem();
+//	[m_pod->m_controller play];
+//}
 
 void Player::play( PlaylistRef playlist, const int index )
 {
@@ -24,7 +30,7 @@ void Player::play( PlaylistRef playlist, const int index )
     if(index > 0 && index < playlist->size())
         m_pod->m_controller.nowPlayingItem = [[collection items] objectAtIndex: index];
 
-    [m_pod->m_controller play];
+	[m_pod->m_controller play];
 }
 
 void Player::play( PlaylistRef playlist )
@@ -32,6 +38,14 @@ void Player::play( PlaylistRef playlist )
     play(playlist, 0);
 }
 
+void Player::play() 
+{
+	[m_pod->m_controller play];
+}
+void Player::pause() 
+{
+	[m_pod->m_controller pause];
+}
 void Player::stop()
 {
     [m_pod->m_controller stop];

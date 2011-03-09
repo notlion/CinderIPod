@@ -20,8 +20,11 @@ public:
     Player();
     ~Player();
 
+//    void play( TrackRef playlist );
     void play( PlaylistRef playlist );
     void play( PlaylistRef playlist, const int index );
+	void play();
+	void pause();
     void stop();
     void skipNext();
     void skipPrev();

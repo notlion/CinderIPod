@@ -28,6 +28,7 @@ public:
 
     uint64_t getAlbumId();
     uint64_t getArtistId();
+	uint64_t getItemId();
 
     int      getPlayCount();
     double   getLength();
@@ -81,6 +82,7 @@ typedef std::shared_ptr<Playlist> PlaylistRef;
 
 PlaylistRef         getAllTracks();
 PlaylistRef         getAlbum(uint64_t album_id);
+PlaylistRef         getArtist(uint64_t artist_id);
 vector<PlaylistRef> getAlbums();
 vector<PlaylistRef> getAlbumsWithArtist(const string &artist_name);
 vector<PlaylistRef> getArtists();
