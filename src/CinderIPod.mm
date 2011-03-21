@@ -106,6 +106,19 @@ string Playlist::getArtistName()
     return string([[item valueForProperty: MPMediaItemPropertyArtist] UTF8String]);
 }
 
+uint64_t Playlist::getAlbumId()
+{
+    MPMediaItem *item = [getMediaItemCollection() representativeItem];
+    return [[item valueForProperty: MPMediaItemPropertyAlbumPersistentID] longLongValue];
+}
+    
+uint64_t Playlist::getArtistId()
+{
+    MPMediaItem *item = [getMediaItemCollection() representativeItem];
+    return [[item valueForProperty: MPMediaItemPropertyArtistPersistentID] longLongValue];
+}
+    
+    
 MPMediaItemCollection* Playlist::getMediaItemCollection()
 {
     NSMutableArray *items = [NSMutableArray array];
@@ -114,8 +127,6 @@ MPMediaItemCollection* Playlist::getMediaItemCollection()
     }
     return [MPMediaItemCollection collectionWithItems:items];
 }
-
-
 
 // IPOD
 

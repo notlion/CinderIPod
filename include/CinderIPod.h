@@ -64,6 +64,8 @@ public:
 
     string getAlbumTitle();
     string getArtistName();
+    uint64_t getAlbumId();
+    uint64_t getArtistId();
 
     TrackRef operator[](const int index){ return m_tracks[index]; };
     TrackRef firstTrack(){ return m_tracks.front(); };
