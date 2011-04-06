@@ -10,8 +10,10 @@
 
     m_player = player;
     m_controller = [MPMusicPlayerController iPodMusicPlayer];
-
+    m_library = [MPMediaLibrary defaultMediaLibrary];
+    
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    
     [nc addObserver: self
            selector: @selector (onStateChanged:)
                name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
@@ -23,13 +25,22 @@
              object: m_controller];
 
     [m_controller beginGeneratingPlaybackNotifications];
+    
+    [nc addObserver: self
+           selector: @selector (onLibraryChanged:)
+               name: MPMediaLibraryDidChangeNotification
+             object: m_library];
 
+    [m_library beginGeneratingLibraryChangeNotifications];
+    
     return self;
 }
+
 - (void)dealloc
 {
     [super dealloc];
-    [m_controller dealloc];
+    // TODO: end generating notifications on m_controller? on library?
+    [m_controller dealloc]; // TODO: is this necessary if we aren't the ones allocing iPodMusicPlayer?
 }
 
 - (void)onStateChanged:(NSNotification *)notification
@@ -40,6 +51,11 @@
 - (void)onTrackChanged:(NSNotification *)notification
 {
     m_cb_track_change.call(m_player);
+}
+
+- (void)onLibraryChanged:(NSNotification *)notification
+{
+    m_cb_library_change.call(m_player);
 }
 
 @end
