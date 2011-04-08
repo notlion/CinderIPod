@@ -36,6 +36,7 @@ public:
     void setShuffleAlbums();
     void setShuffleOff();
 
+    bool hasPlayingTrack();
     TrackRef getPlayingTrack();
     State    getPlayState();
 

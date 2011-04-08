@@ -86,6 +86,10 @@ void Player::setShuffleOff()
     [m_pod->m_controller setShuffleMode: MPMusicShuffleModeOff];
 }
 
+bool Player::hasPlayingTrack()
+{
+    return m_pod->m_controller.nowPlayingItem != Nil;
+}
 
 TrackRef Player::getPlayingTrack()
 {
